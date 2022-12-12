@@ -71,8 +71,7 @@ public class Inicio {
 				listaDeProdutos[posicaoAtual] = novoProduto;
 				posicaoAtual = posicaoAtual + 1;
 
-				System.out.println("Produto " + novoProduto.getCodigo() + ": " + novoProduto.getNome()
-						+ " foi cadastrado com sucesso");
+				System.out.println("Produto " + novoProduto.getCodigo() + ": " + novoProduto.getNome() + " foi cadastrado com sucesso");
 
 			}
 			if (respostaMenu == 2) {
@@ -92,7 +91,9 @@ public class Inicio {
 				for (int m = 0; m < listaDeProdutos.length; m++) {
 				
 					if(listaDeProdutos[m] != null ) {
-						System.out.println(listaDeProdutos[m].getNome());
+						//System.out.println(listaDeProdutos[m].getNome());
+						detalhesProdutos(listaDeProdutos[m]);
+						
 					}
 				}
 			}
