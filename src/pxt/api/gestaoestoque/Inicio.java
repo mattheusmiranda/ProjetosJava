@@ -9,7 +9,7 @@ import java.util.Scanner;
  * 2) Na classe do método main, crie duas variáveis globais: - um array do tipo
  * Produto com o tamanho de 3 // feito - uma variável inteira chamada
  * posicaoAtualProduto (que será usada para controlar em qual posição foi salvo
- * o último produto) // feito
+ * o último produto) // feito  
  * 
  * 3) No método main, inicie o programa exibindo um menu com as seguintes
  * escolhas (não se preocupe com todas as opções por agora, vamos implementar
