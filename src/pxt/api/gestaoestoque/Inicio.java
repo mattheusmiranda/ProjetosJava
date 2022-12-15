@@ -1,5 +1,6 @@
 package pxt.api.gestaoestoque;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Scanner;
  * 2) Na classe do método main, crie duas variáveis globais: - um array do tipo
  * Produto com o tamanho de 3 // feito - uma variável inteira chamada
  * posicaoAtualProduto (que será usada para controlar em qual posição foi salvo
- * o último produto) // feito  
+ * o último produto) // feito
  * 
  * 3) No método main, inicie o programa exibindo um menu com as seguintes
  * escolhas (não se preocupe com todas as opções por agora, vamos implementar
@@ -36,6 +37,8 @@ public class Inicio {
 	public static void main(String[] args) {
 		Produto listaDeProdutos[] = new Produto[4];
 		Produto posicaoAtualProduto = new Produto();
+		
+		ArrayList<Integer> listaDeProdutos2 = new ArrayList<>();
 
 		int posicaoAtual = 0;
 		Scanner sc = new Scanner(System.in);
@@ -47,10 +50,7 @@ public class Inicio {
 			System.out.println("Escolha uma opção: ");
 
 			respostaMenu = sc.nextInt();
-			// for (int i = 1; posicaoAtual < 1; i++) {
-			/*
-			 * if (respostaMenu == 0) { System.exit(0); }
-			 */
+
 			if (respostaMenu == 1) {
 				Produto novoProduto = new Produto();
 
@@ -71,8 +71,8 @@ public class Inicio {
 				listaDeProdutos[posicaoAtual] = novoProduto;
 				posicaoAtual = posicaoAtual + 1;
 
-				System.out.println("Produto " + novoProduto.getCodigo() + ": " + novoProduto.getNome() + " foi cadastrado com sucesso");
-
+				System.out.println("Produto " + novoProduto.getCodigo() + ": " + novoProduto.getNome()
+						+ " foi cadastrado com sucesso");
 			}
 			if (respostaMenu == 2) {
 				System.out.println("qual codigo do produto voce deseja exibir? ");
@@ -87,13 +87,13 @@ public class Inicio {
 			}
 			if (respostaMenu == 3) {
 				System.out.println("-----Todos os produtos-----");
-				
+
 				for (int m = 0; m < listaDeProdutos.length; m++) {
-				
-					if(listaDeProdutos[m] != null ) {
-						//System.out.println(listaDeProdutos[m].getNome());
+
+					if (listaDeProdutos[m] != null) {
+						// System.out.println(listaDeProdutos[m].getNome());
 						detalhesProdutos(listaDeProdutos[m]);
-						
+
 					}
 				}
 			}
@@ -107,9 +107,4 @@ public class Inicio {
 		System.out.println("Codigo: " + produto.getCodigo());
 
 	}
-	
-
-	
-	
-	
 }
