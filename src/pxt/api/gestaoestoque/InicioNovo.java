@@ -49,6 +49,8 @@ public class InicioNovo {
 
 				detalhesProdutos(listaDeProdutos.get(listaDeProdutos.indexOf(new Produto(detalheCodigoProduto))));
 
+
+
 			}
 			if (respostaMenu == 3) {
 				for (int m = 0; m < listaDeProdutos.size(); m++) {
@@ -56,9 +58,7 @@ public class InicioNovo {
 					if (listaDeProdutos.get(m) != null) {
 						detalhesProdutos(listaDeProdutos.get(m));
 					}
-				
 				}
-				
 			}
 
 			if (respostaMenu == 4) {
@@ -68,7 +68,6 @@ public class InicioNovo {
 				detalhesProdutos(
 						listaDeProdutos.remove(listaDeProdutos.indexOf(new Produto(codigoProdutoParaRemover))));
 			}
-
 		}
 	}
 
