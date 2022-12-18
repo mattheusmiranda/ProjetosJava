@@ -5,12 +5,16 @@ import java.time.LocalDate;
 
 public class Informaçoes {
 	private double preco;
-	private int desconto;
 	private String nomeProduto;
+	private int codigoProduto;
 	private LocalDate dataPedido =  LocalDate.now();
 	private int qtddProdutos;
 	private String cidadesOndeEntrega;
-	private int codigoProduto;
+	private double valDesconto;
+	private double precoPosDesconto;
+	
+
+	int descontoQuinze = 15/100;
 	
 	public int getCodigoProduto() {
 		return codigoProduto;
@@ -19,12 +23,14 @@ public class Informaçoes {
 		this.codigoProduto = codigoProduto;
 	}
 	
+	
 	public String getCidadesOndeEntrega() {
 		return cidadesOndeEntrega;
 	}
 	public void setCidadesOndeEntrega(String cidadesOndeEntrega) {
 		this.cidadesOndeEntrega = cidadesOndeEntrega;
 	}
+	
 	
 	public double getPreco() {
 		return preco;
@@ -33,12 +39,22 @@ public class Informaçoes {
 		this.preco = preco;
 	}
 	
-	public int getDesconto() {
-		return desconto;
+	// desconto
+	public double getPrecoPosDesconto() {
+		return precoPosDesconto;
 	}
-	public void setDesconto(int desconto) {
-		this.desconto = desconto;
+	public void setPrecoPosDesconto(double precoPosDesconto) {
+		this.precoPosDesconto = preco - valDesconto;
 	}
+	
+	
+	public double getValDesconto() {
+		return valDesconto;
+	}
+	public void setValDesconto(double valDesconto) {
+		this.valDesconto = valDesconto * qtddProdutos * descontoQuinze;
+	}
+	// desconto 
 	
 	public String getNomeProduto() {
 		return nomeProduto;
@@ -47,12 +63,14 @@ public class Informaçoes {
 		this.nomeProduto = nomeProduto;
 	}
 	
+	
 	public LocalDate getDataPedido() {
 		return dataPedido;
 	}
 	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
+	
 	
 	public int getQtddProdutos() {
 		return qtddProdutos;
