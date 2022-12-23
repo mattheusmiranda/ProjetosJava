@@ -1,4 +1,4 @@
-package exemploherenca;
+package exsobreescrita;
 
 public class ExemploHerancaJava {
 	public static void main(String[] args) {

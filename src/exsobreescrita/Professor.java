@@ -1,4 +1,4 @@
-package exemploherenca;
+package exsobreescrita;
 
 public class Professor extends Pessoa{
 	private float salario;
