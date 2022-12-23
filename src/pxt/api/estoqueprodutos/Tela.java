@@ -1,52 +1,59 @@
 package pxt.api.estoqueprodutos;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
-import pxt.api.gestaoestoque.Produto;
 
 public class Tela {
 	public static void main(String[] args) {
 
-		ArrayList<Informaçoes> Produtos = new ArrayList<>();
-		ArrayList<String> ListaCidades = new ArrayList<>();
-		ArrayList<String> ListaProdutos = new ArrayList<>();
-		ArrayList<Double> ListaPreços = new ArrayList<>();
-		ArrayList<Integer> ListaCodigo = new ArrayList<>();
-		
-
+		List<Cidade> ListaCidades = new ArrayList<>();
+		List<Produto> ListaProdutos = new ArrayList<>();
 
 		Scanner sc = new Scanner(System.in);
 
-		Informaçoes Produto1 = new Informaçoes();
-		Informaçoes Produto2 = new Informaçoes();
-		Informaçoes Produto3 = new Informaçoes();
-		Informaçoes Produto4 = new Informaçoes();
+		Produto Produto1 = new Produto();
+		Produto Produto2 = new Produto();
+		Produto Produto3 = new Produto();
+		Produto Produto4 = new Produto();
+
+		Cidade verificarCidade = new Cidade();
+		Cidade Cidade2 = new Cidade();
+		Cidade Cidade3 = new Cidade();
 
 		Produto1.setNomeProduto("Memoria ram 8gb");
 		Produto1.setPreco(110.90);
 		Produto1.setCodigoProduto(704);
-		ListaCodigo.add(Produto1.getCodigoProduto());
-		
+		ListaProdutos.add(Produto1);
+
 		Produto2.setNomeProduto("Gabinete");
 		Produto2.setPreco(300.00);
 		Produto2.setCodigoProduto(898);
-		ListaCodigo.add(Produto2.getCodigoProduto());
+		ListaProdutos.add(Produto2);
 
 		Produto3.setNomeProduto("Placa mãe");
 		Produto3.setPreco(889.90);
 		Produto3.setCodigoProduto(127);
-		ListaCodigo.add(Produto3.getCodigoProduto());
+		ListaProdutos.add(Produto3);
 
 		Produto4.setNomeProduto("Processador ryzen 5");
 		Produto4.setPreco(990.90);
 		Produto4.setCodigoProduto(153);
-		ListaCodigo.add(Produto4.getCodigoProduto());
+		ListaProdutos.add(Produto4);
 
-		ListaCidades.add("Belo Horizonte");
-		ListaCidades.add("São Paulo");
-		ListaCidades.add("Brasilia");
-		
+		verificarCidade.setNomeCidades("Uberlândia");
+		verificarCidade.setFreteCidades(87.50);
+
+		Cidade2.setNomeCidades("Salvador");
+		Cidade2.setFreteCidades(92.00);
+
+		Cidade3.setNomeCidades("Brasilia");
+		Cidade3.setFreteCidades(75.40);
+
+		ListaCidades.add(verificarCidade);
+		ListaCidades.add(Cidade2);
+		ListaCidades.add(Cidade3);
+
 		// MENU/ESCOLHA DE PRODUTO
 		System.out.println("---------NOSSOS PRODUTOS---------\n");
 
@@ -62,69 +69,79 @@ public class Tela {
 		System.out.println("Codigo do produto para enviar para o cliente: ");
 		int codigoProdutoParaEnvio = sc.nextInt();
 
-		if (ListaCodigo.contains(codigoProdutoParaEnvio)) {
-			
-		} else {
-			System.out.println("Produto nao encontrado");
+		for (Produto codValidacao : ListaProdutos) {
+			if (ListaProdutos.contains(codValidacao)) {
+				break;
+			} else {
+				System.out.println("Produto nao encontrado");
+			}
 		}
 
 		// EXPECIFICAÇÕES DO PEDIDO
 
 		System.out.println("\nQuantos produtos são? ");
 		int quantidadeProduto = sc.nextInt();
-		
-		Informaçoes numeroDeProdutos = new Informaçoes();
+
+		Produto numeroDeProdutos = new Produto();
 		numeroDeProdutos.setQtddProdutos(quantidadeProduto);
-	
+
 		System.out.println("\nCidades em que entregamos: ");
 		System.out.println(ListaCidades);
 		System.out.println("\nQual a cidade para o envio? ");
 		String cidadeParaEnvio = sc.next();
 
-		if (ListaCidades.contains(cidadeParaEnvio)) {
-			System.out.println("Valor do frete: 80.00"); // ver com o maske mais opçoes de frete
-		} else {
-			System.out.println("Nao enviamos para essa cidade");
+		// Frete cidades
+
+		for (Cidade verificarCidades : ListaCidades) {
+			if (verificarCidades.getNomeCidades().equals(cidadeParaEnvio)) {
+				System.out.println(
+						"Frete para " + verificarCidades.getNomeCidades() + ": " + verificarCidades.getFreteCidades());
+				break;
+			}
 		}
 
+		// Produto com desconto
 		if (quantidadeProduto >= 4) {
-			if(codigoProdutoParaEnvio == Produto1.getCodigoProduto()) {
-				operacaoDesconto(Produto1.getPreco(), quantidadeProduto);
-			} 
-			else if (codigoProdutoParaEnvio == Produto2.getCodigoProduto()) {
-				operacaoDesconto(Produto2.getPreco(), quantidadeProduto);
+
+			for (Produto produtos : ListaProdutos) {
+				if (codigoProdutoParaEnvio == produtos.getCodigoProduto()) {
+					double precoComDesconto = operacaoDesconto(produtos.getPreco(), quantidadeProduto);
+					produtos.setPrecoPosDesconto(precoComDesconto);
+
+					for (Cidade cidade : ListaCidades) {
+						if (cidade.getNomeCidades().equals(cidadeParaEnvio)) {
+							double valTotal = Produto1.getPrecoPosDesconto() * quantidadeProduto
+									+ cidade.getFreteCidades();
+							System.out.println("Valor total com o frete: " + valTotal);
+						}
+					}
+				}
 			}
-			else if(codigoProdutoParaEnvio == Produto3.getCodigoProduto()) {
-				operacaoDesconto(Produto3.getPreco(), quantidadeProduto);
-			}
-			else {
-				operacaoDesconto(Produto4.getPreco(), quantidadeProduto);
+
+		} else { // Produto sem desconto
+			for (Produto produtos : ListaProdutos) {
+				if (codigoProdutoParaEnvio == produtos.getCodigoProduto()) {
+					double precoSemDesconto = Produto1.getPreco() * quantidadeProduto;
+					Produto1.setPrecoPosDesconto(precoSemDesconto);
+
+					for (Cidade cidade : ListaCidades) {
+						if (cidade.getNomeCidades().equals(cidadeParaEnvio)) {
+							double valTotal = Produto1.getPrecoPosDesconto() * quantidadeProduto
+									+ cidade.getFreteCidades();
+							System.out.println("Valor total com o frete: " + valTotal);
+						}
+					}
+				}
 			}
 		}
-		
-		System.out.println(notaFiscal(Produto1.getNomeProduto(), quantidadeProduto));
-	}
-	
-	private static char[] notaFiscal(String nomeProduto, int quantidadeProduto) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Produto esta indo para a transportadora ");
 	}
 
-	public static double operacaoDesconto(double valProduto, double valQuantidade ) {
-		double n = valProduto * valQuantidade  * 0.15;
-		double m = valProduto * valQuantidade - n;
-		System.out.println("Preço total com desconto de  15%: " + m);
-		//System.out.println(m);
-		return 0;
-		
-	}
-	
-	public static void notaFiscal(Informaçoes nomeProduto, int valQuantidade ) {
-		System.out.println("--------NOTA FISCAL--------");
-		System.out.println("Nome: " + nomeProduto.getNomeProduto());
-		System.out.println("Quantidade em estoque: " + valQuantidade);
-		System.out.println("Data de criação: " + nomeProduto.getDataPedido());
-		//System.out.println("Codigo: " + produto.getCodigo());
-
+	// METODO
+	public static double operacaoDesconto(double valProduto, double valQuantidade) {
+		double valorDoDesconto = valProduto * 0.15;
+		double precoProdutoComDesconto = valProduto - valorDoDesconto;
+		System.out.println("Valor do produto com desconto: " + precoProdutoComDesconto);
+		return precoProdutoComDesconto;
 	}
 }
